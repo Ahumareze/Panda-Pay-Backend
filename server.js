@@ -1,6 +1,8 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const nodemailer = require('nodemailer')
+const nodemailer = require('nodemailer');
+
+const PORT = process.env.PORT || 5000;
 
 const app = express();
 app.use(express.json());
@@ -58,4 +60,4 @@ app.post('/users', (req, res) => {
     res.status(201).send()
 })
 
-app.listen(3000)
+app.listen(PORT)
