@@ -65,13 +65,15 @@ app.post('/signup', (req, res) => {
   User.findOne({email: req.body.email})
     .then(r => {
       if(r){
-        res.status(500).send('user already exists');
+        res.status(400).send({message: 'user already exists'});
       }else{
         signUpUser(req.body, res)
       }
     })
     .catch(e => {
-      res.status(500).send('network error')
+      res.status(400).send({
+        message: 'network error'
+      })
     })
 })
 
@@ -110,16 +112,21 @@ app.post('/login', (req, res) => {
       if(r){
         loginUser(r, req.body, res)
       }else{
-        res.send(500).send('user does not exist')
+        res.status(400).send({message: 'user does not exist'})
       }
     })
     .catch(e => {
-      res.status(404).send('error connecting to database')
+      res.status(400).send({message: 'error connecting to database'})
     })
 });
 
-const loginUser = (user, data, res) => {
-  res.send(user, data)
+const loginUser = async (user, data, res) => {
+  const passTrue = await bcrypt.compare(data.password, user.password);
+  if(passTrue){
+    res.send('success')
+  }else{
+    res.status(400).send({message: 'user already exists'})
+  }
 }
 
 //king - 12345678
