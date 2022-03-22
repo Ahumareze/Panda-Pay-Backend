@@ -77,7 +77,7 @@ app.post('/signup', (req, res) => {
 
 const signUpUser = async (data, res) => {
   try{
-    const hashedPassword = await bcrypt.hash(data.password, 10)
+    const hashedPassword = await bcrypt.hash(data.password, 10);
     const user = new User({
       username: data.username,
       email: data.email,
@@ -104,3 +104,23 @@ const signUpUser = async (data, res) => {
   }
 }
 
+app.post('/login', (req, res) => {
+  User.findOne({email: req.body.email})
+    .then(r => {
+      if(r){
+        loginUser(r, req.body, res)
+      }else{
+        res.send(500).send('user does not exist')
+      }
+    })
+    .catch(e => {
+      res.status(404).send('error connecting to database')
+    })
+});
+
+const loginUser = (user, data, res) => {
+  res.send(user, data)
+}
+
+//king - 12345678
+//mary - 345678
