@@ -1,18 +1,11 @@
-POST http://localhost:5000/users
+POST  http://localhost:5000/signup
 Content-Type: application/json
 
 {
-    "username": "kerry"
+    "username": "king",
+    "password": "1234567",
+    "email": "king@gmail.com"
 }
 
 ###
-POST http://localhost:5000/sendmessage
-Content-Type: application/json
-
-{
-    "name": "Mark",
-    "password": "1234567"
-}
-
-###
-GET https://pandamailingservice.herokuapp.com/msg
+GET http://localhost:5000/users
