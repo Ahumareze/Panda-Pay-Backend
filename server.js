@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
+const { is } = require('express/lib/request');
 
 const PORT = process.env.PORT || 5000;
 
@@ -10,18 +11,38 @@ app.use(express.json());
 app.use(cors());
 
 const users = [
-  {username: 'king', email: 'king@gmail.com', id: 0, balance: 100},
-  {username: 'martin', email: 'martin@gmail.com', id: 1, balance: 200},
-  {username: 'sarah', email: 'sarah@gmail.com', id: 2, balance: 300},
-]
+  {
+    username: 'king',
+    email: 'king@gmail.com',
+    password: '1234567',
+    id: 1,
+    balance: 200,
+    nft: 'google.com'
+  }
+];
 
-app.get('/', (req, res) => {
-  res.send(users)
-});
+app.post('/users', (req, res) => {
+  const user = users.find(user => user.username == req.body.username);
+  
+  if(user){
+    res.send(user)
+  }else{
+    console.error('no user found')
+  }
+})
 
-app.get('/user', (req, res) => {
-  const username  = req.body.username;
-  res.send(username)
-});
+app.listen(PORT);
 
-app.listen(PORT)
+//username
+//email
+//password
+//id
+//balance
+//nft
+//history []
+    //item{}
+      //username
+      //date
+      //nft
+      //amount
+      //type
