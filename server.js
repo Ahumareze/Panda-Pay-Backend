@@ -12,7 +12,7 @@ app.use(cors());
 
 
 //connect to mongodb
-const dbUrl = 'mongodb+srv://<username>:<passsword>@panda.igjqr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const dbUrl = 'mongodb+srv://panda:de51gner@panda.igjqr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 mongoose.connect(dbUrl, {useNewUrlParser: true, useUnifiedTopology: true})
   .then(r => {
     console.log('connected to db ' + r);
