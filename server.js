@@ -3,6 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const User = require('./models/user');
+const jsonwebtoken = require('jsonwebtoken');
 
 const PORT = process.env.PORT || 5000;
 
@@ -96,7 +97,10 @@ const signUpUser = async (data, res) => {
           email: r.email,
           balance: r.balance
         }
-        res.send(data)
+        const token = jsonwebtoken.sign(
+          {user_id: data._id, email}, process.env.TOKEN_KEY, {expiresIn: "1d"}
+        )
+        res.send({...data, token})
       })
       .catch(
 
