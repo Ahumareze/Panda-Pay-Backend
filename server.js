@@ -1,4 +1,5 @@
 const express = require('express');
+require('dotenv').config();
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
@@ -13,7 +14,7 @@ app.use(cors());
 
 
 //connect to mongodb
-const dbUrl = 'mongodb+srv://panda:de51gner@panda.igjqr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const dbUrl = process.env.dbUrl;
 mongoose.connect(dbUrl, {useNewUrlParser: true, useUnifiedTopology: true})
   .then(r => {
     console.log('connected to db ' + r);
@@ -97,14 +98,15 @@ const signUpUser = async (data, res) => {
           username: r.username,
           id: r._id,
           email: r.email,
-          balance: r.balance
+          balance: r.balance,
+          nft: r.nft
         }
 
         //generate token
         const token = jwt.sign(
           {user_id: data._id}, process.env.TOKEN_KEY, {expiresIn: "1d"}
         );
-        res.send({...data})
+        res.send({...data, token})
       })
       .catch(
 
