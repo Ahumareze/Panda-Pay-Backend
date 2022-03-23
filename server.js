@@ -133,7 +133,25 @@ app.post('/login', (req, res) => {
 const loginUser = async (user, data, res) => {
   const passTrue = await bcrypt.compare(data.password, user.password);
   if(passTrue){
-    res.send('success')
+    User.findOne({email: data.email})
+      .then(r => {
+
+        //generate token
+        const token = jwt.sign(
+          {user_id: r._id}, process.env.TOKEN_KEY, {expiresIn: "1d"}
+        );
+        const data = {
+          username: r.username,
+          id: r._id,
+          email: r.email,
+          nft: r.nft,
+          token
+        }
+        res.send(data)
+      })
+      .catch(e => {
+        res.status(500).send()
+      })
   }else{
     res.status(400).send({message: 'user already exists'})
   }
