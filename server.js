@@ -3,7 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const User = require('./models/user');
-const jsonwebtoken = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const PORT = process.env.PORT || 5000;
 
@@ -80,6 +80,8 @@ app.post('/signup', (req, res) => {
 
 const signUpUser = async (data, res) => {
   try{
+
+    //Hash password
     const hashedPassword = await bcrypt.hash(data.password, 10);
     const user = new User({
       username: data.username,
@@ -97,10 +99,12 @@ const signUpUser = async (data, res) => {
           email: r.email,
           balance: r.balance
         }
-        const token = jsonwebtoken.sign(
-          {user_id: data._id, email}, process.env.TOKEN_KEY, {expiresIn: "1d"}
-        )
-        res.send({...data, token})
+
+        //generate token
+        const token = jwt.sign(
+          {user_id: data._id}, process.env.TOKEN_KEY, {expiresIn: "1d"}
+        );
+        res.send({...data})
       })
       .catch(
 
