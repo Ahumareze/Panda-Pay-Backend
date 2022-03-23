@@ -67,15 +67,13 @@ app.post('/signup', (req, res) => {
   User.findOne({email: req.body.email})
     .then(r => {
       if(r){
-        res.status(400).send({message: 'user already exists'});
+        res.status(400).send('user already exists');
       }else{
         signUpUser(req.body, res)
       }
     })
     .catch(e => {
-      res.status(400).send({
-        message: 'network error'
-      })
+      res.status(400).send('network error')
     })
 })
 
@@ -122,11 +120,11 @@ app.post('/login', (req, res) => {
       if(r){
         loginUser(r, req.body, res)
       }else{
-        res.status(400).send({message: 'user does not exist'})
+        res.status(400).send('user does not exist')
       }
     })
     .catch(e => {
-      res.status(400).send({message: 'error connecting to database'})
+      res.status(400).send('error connecting to database')
     })
 });
 
@@ -153,6 +151,6 @@ const loginUser = async (user, data, res) => {
         res.status(500).send()
       })
   }else{
-    res.status(400).send({message: 'user already exists'})
+    res.status(400).send('incorrect password')
   }
 }
