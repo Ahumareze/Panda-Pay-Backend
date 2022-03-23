@@ -67,7 +67,7 @@ app.post('/signup', (req, res) => {
   User.findOne({email: req.body.email})
     .then(r => {
       if(r){
-        res.status(400).send('user already exists');
+        res.status(400).json({message: 'user already exists'});
       }else{
         signUpUser(req.body, res)
       }
@@ -120,7 +120,7 @@ app.post('/login', (req, res) => {
       if(r){
         loginUser(r, req.body, res)
       }else{
-        res.status(400).send('user does not exist')
+        res.status(400).json({message: 'user does not exist'})
       }
     })
     .catch(e => {
@@ -151,6 +151,6 @@ const loginUser = async (user, data, res) => {
         res.status(500).send()
       })
   }else{
-    res.status(400).send('incorrect password')
+    res.status(400).json({message: 'incorrect password'})
   }
 }
