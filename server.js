@@ -34,7 +34,7 @@ app.get('/users', (req, res) => {
     })
 });
 
-app.get('/user',(req, res) => {
+app.post('/user',(req, res) => {
   User.findById(req.body.id)
     .then(r => {
       res.send(r)
