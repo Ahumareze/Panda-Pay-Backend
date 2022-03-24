@@ -34,6 +34,16 @@ app.get('/users', (req, res) => {
     })
 });
 
+app.get('/user',(req, res) => {
+  User.findById(req.body.id)
+    .then(r => {
+      res.send(r)
+    })
+    .catch(e => {
+      req.status(400).json({message: 'error fetching user'})
+    })
+})
+
 app.post('/reciever', (req, res) => {
   User.findOne({email: req.body.email})
     .then(r => {
