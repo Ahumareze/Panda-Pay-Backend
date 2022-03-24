@@ -34,34 +34,19 @@ app.get('/users', (req, res) => {
     })
 });
 
-// app.post('/signup', async (req, res) => {
-//   User.find()
-//     .then(async (r) => {
-      
-//       const exUser = r.find(user => user.username == req.body.username)
-      
-
-//         try{
-//           const hashedPassword = await bcrypt.hash(req.body.password, 10)
-//           const user = new User({
-//             username: req.body.username,
-//             email: req.body.email,
-//             password: hashedPassword,
-//             nft: 0,
-//             balance: 0,
-//             history: []
-//           })
-//           user.save()
-//             .then(result => res.send(result))
-//             .catch(err => res.status(500).send('error saving user'))
-//       }catch{
-//         res.status(500).send()
-//       }
-//     })
-//     .catch(e => {
-//       res.status(404).send()
-//     })
-// });
+app.post('/user', (req, res) => {
+  User.findOne({email: req.body.email})
+    .then(r => {
+      if(r){
+        res.send(r)
+      }else{
+        res.status(400).json({message: 'user does not exists'});
+      }
+    })
+    .catch(e => {
+      res.status(400).json({message: 'error finding user'});
+    })
+})
 
 app.post('/signup', (req, res) => {
   User.findOne({email: req.body.email})
