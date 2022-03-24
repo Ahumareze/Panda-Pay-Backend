@@ -174,7 +174,7 @@ const transferMainFunction = (sender, reciever, amount, res) => {
   const recieverBalance = reciever.balance + amount;
 
   const senderHistory = [...sender.history];
-  res.send(senderHistory);
+  res.send(senderHistory + ' history');
 
   // res.send(newSenderData)
 }
