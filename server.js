@@ -157,7 +157,7 @@ app.post('/transfer', (req, res) => {
       // res.send(r);
       User.findById(req.body.reciever)
         .then(rsult => {
-          transferMainFunction(r, rsult, req.body.amount, res)
+          transferMainFunction(r, rsult, req.body.amount, req.body.date, res)
         })
         .catch(e => {
           console.log(e)
@@ -168,13 +168,44 @@ app.post('/transfer', (req, res) => {
     })
 });
 
-const transferMainFunction = (sender, reciever, amount, res) => {
+const transferMainFunction = (sender, reciever, amount, date, res) => {
   
   const senderBalance = sender.balance - amount;
   const recieverBalance = reciever.balance + amount;
 
-  const senderHistory = [...sender.history];
-  res.send(senderHistory + ' history');
+  const senderHistory = [...sender.history, {
+    name: reciever.username,
+    nft: reciever.nft,
+    amount,
+    date,
+    type: 'debit'
+  }];
+
+  const recieverHistory = [...reciever.history, {
+    name: sender.username,
+    nft: sender.nft,
+    amount,
+    date,
+    type: 'credit'
+  }]
+
+  User.findByIdAndUpdate(sender._id, {history: senderHistory, balance: senderBalance})
+    .then(r => {
+      postRecieverData(reciever._id, recieverBalance, recieverHistory, res)
+    })
+    .catch(e => {
+      res.status(400).json({message: "error updating balance"})
+    })
 
   // res.send(newSenderData)
+};
+
+const postRecieverData = (id, balance, history, res) => {
+  User.findByIdAndUpdate(id, {history: history, balance: balance})
+    .then(r => {
+      res.send('success')
+    })
+    .catch(e => {
+      res.status(400).json({message: "error updating balance"})
+    })
 }

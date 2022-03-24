@@ -34,5 +34,6 @@ Content-Type: application/json
 {
     "sender": "623c781deb1f679a59ee40bc",
     "reciever": "623b5be40ab17b35af2265d5",
-    "amount": 200
+    "amount": 1,
+    "date": "Mar 25 2022"
 }
