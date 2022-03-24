@@ -148,4 +148,8 @@ const loginUser = async (user, data, res) => {
   }else{
     res.status(400).json({message: 'incorrect password'})
   }
-}
+};
+
+app.post('/transfer', (req, res) => {
+  console.log(req.body)
+})
