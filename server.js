@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const User = require('./models/user');
 const jwt = require('jsonwebtoken');
+const { findOneAndUpdate, findById } = require('./models/user');
 
 const PORT = process.env.PORT || 5000;
 
@@ -151,5 +152,29 @@ const loginUser = async (user, data, res) => {
 };
 
 app.post('/transfer', (req, res) => {
-  console.log(req.body)
-})
+  User.findById(req.body.sender)
+    .then(r => {
+      // res.send(r);
+      User.findById(req.body.reciever)
+        .then(rsult => {
+          transferMainFunction(r, rsult, req.body.amount, res)
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    })
+    .catch(e => {
+      res.status(400).json({message: 'error transfering money'})
+    })
+});
+
+const transferMainFunction = (sender, reciever, amount, res) => {
+  
+  const senderBalance = sender.balance - amount;
+  const recieverBalance = reciever.balance + amount;
+
+  const senderHistory = [...sender.history];
+  res.send(senderHistory);
+
+  // res.send(newSenderData)
+}
