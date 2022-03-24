@@ -34,7 +34,7 @@ app.get('/users', (req, res) => {
     })
 });
 
-app.post('/user', (req, res) => {
+app.post('/reciever', (req, res) => {
   User.findOne({email: req.body.email})
     .then(r => {
       if(r){

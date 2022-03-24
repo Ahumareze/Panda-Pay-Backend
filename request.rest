@@ -17,11 +17,11 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:5000/user
+POST http://panda-pay.herokuapp.com/user
 Content-Type: application/json
 
 {
-    "email": "martin@gmail.com"
+    "email": "kin@gmail.com"
 }
 
 ###
