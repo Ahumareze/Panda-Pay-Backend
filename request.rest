@@ -12,8 +12,8 @@ POST http://panda-pay.herokuapp.com/login
 Content-Type: application/json
 
 {
-    "email": "poppy9@gmail.com",
-    "password": "1234567"
+    "email": "king@gmail.com",
+    "password": "1234566"
 }
 
 ###
