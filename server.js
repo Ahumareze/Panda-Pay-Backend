@@ -154,14 +154,18 @@ const loginUser = async (user, data, res) => {
 app.post('/transfer', (req, res) => {
   User.findById(req.body.sender)
     .then(r => {
-      // res.send(r);
-      User.findById(req.body.reciever)
+      if(r.balance < req.body.amount){
+        res.status(500).json({message: "Insufficent balance"})
+      }else{
+        User.findById(req.body.reciever)
         .then(rsult => {
           transferMainFunction(r, rsult, req.body.amount, req.body.date, res)
         })
         .catch(e => {
           console.log(e)
         })
+      }
+      
     })
     .catch(e => {
       res.status(400).json({message: 'error transfering money'})
