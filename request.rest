@@ -17,7 +17,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://panda-pay.herokuapp.com/user
+POST http://localhost:5000/user
 Content-Type: application/json
 
 {

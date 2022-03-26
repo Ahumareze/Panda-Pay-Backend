@@ -215,5 +215,11 @@ const postRecieverData = (id, balance, history, res) => {
 };
 
 app.post('/updateNft', (req, res) => {
-  res.send(req.body)
+  User.findByIdAndUpdate(req.body.id, {nft: req.body.nft})
+    .then(r => {
+      res.send(e)
+    })
+    .catch(e => {
+      res.status(400).json({message: "error updating nft"})
+    })
 })
