@@ -212,4 +212,8 @@ const postRecieverData = (id, balance, history, res) => {
     .catch(e => {
       res.status(400).json({message: "error updating balance"})
     })
-}
+};
+
+app.post('/updateNft', (req, res) => {
+  res.send(req.body)
+})
