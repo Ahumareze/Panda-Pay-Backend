@@ -37,4 +37,3 @@ Content-Type: application/json
     "amount": 987,
     "date": "Mar 25 2022"
 }
-jdjd
