@@ -25,7 +25,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://panda-pay.herokuapp.com/users
+GET http://localhost:5000/users
 
 ###
 POST http://localhost:5000/transfer
@@ -43,6 +43,6 @@ post http://localhost:5000/updateNft
 Content-Type: application/json
 
 {
-    "nft": 6,
+    "nft": 9,
     "id": "623b5be40ab17b35af2265d5"
 }
