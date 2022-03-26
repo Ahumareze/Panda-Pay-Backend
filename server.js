@@ -220,6 +220,6 @@ app.post('/updateNft', (req, res) => {
       res.send(e)
     })
     .catch(e => {
-      res.status(400).json({message: "error updating nft"})
+      res.status(400).json({message: e})
     })
 })
