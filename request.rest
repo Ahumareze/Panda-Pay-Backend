@@ -37,3 +37,12 @@ Content-Type: application/json
     "amount": 987,
     "date": "Mar 25 2022"
 }
+
+###
+post http://localhost:5000/updateNft
+Content-Type: application/json
+
+{
+    "nft": 3,
+    "id": "623b5be40ab17b35af2265d5"
+}
