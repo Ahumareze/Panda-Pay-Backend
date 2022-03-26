@@ -43,6 +43,6 @@ post http://localhost:5000/updateNft
 Content-Type: application/json
 
 {
-    "nft": 3,
+    "nft": 6,
     "id": "623b5be40ab17b35af2265d5"
 }
